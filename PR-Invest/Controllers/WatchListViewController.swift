@@ -8,7 +8,7 @@
 import UIKit
 
 class WatchListViewController: UIViewController {
-
+  
   private var searchTimer: Timer?
   
   override func viewDidLoad() {
@@ -16,9 +16,8 @@ class WatchListViewController: UIViewController {
     view.backgroundColor = .systemBackground
     setUpSearchController()
     setUpTitleView()
-    // Do any additional setup after loading the view.
   }
-
+  
   private func setUpSearchController() {
     let resultVC = SearchResultsViewController()
     resultVC.delegate = self
@@ -77,7 +76,7 @@ extension WatchListViewController: UISearchResultsUpdating {
     
     
     // Call API to search
-
+    
   }
 }
 
