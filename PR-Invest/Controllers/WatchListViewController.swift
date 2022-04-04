@@ -9,6 +9,8 @@ import UIKit
 
 class WatchListViewController: UIViewController {
 
+  private var searchTimer: Timer?
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .systemBackground
@@ -50,18 +52,38 @@ extension WatchListViewController: UISearchResultsUpdating {
       return
     }
     
+    // reset timer
+    searchTimer?.invalidate()
+    
     // Optimize search text
+    searchTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
+      
+      APICaller.shared.search(query: query) { result in
+        switch result {
+        case .success(let response):
+          DispatchQueue.main.async {
+            resultVC.update(with: response.result)
+          }
+        case .failure(let error):
+          DispatchQueue.main.async {
+            print(error.localizedDescription)
+            resultVC.update(with: [])
+          }
+        }
+      }
+      
+      
+    })
+    
     
     // Call API to search
-    
-    // update result VC
-    resultVC.update(with: ["AAPL", "CRM"])
-    
+
   }
 }
 
 extension WatchListViewController: SearchResultsViewControllerDelegate {
-  func searchResultsViewControllerDidSelect(searchResult: String) {
+  func searchResultsViewControllerDidSelect(searchResult: SearchResult) {
     // present stocks detail for given selection
+    print("Did select \(searchResult.symbol)")
   }
 }

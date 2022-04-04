@@ -14,6 +14,21 @@ final class APICaller {
   
   // MARK: Public
   
+  public func search(query: String, completion: @escaping (Result<SearchResponse, Error>) -> Void) {
+    
+    guard let safeQuery = query.addingPercentEncoding(
+      withAllowedCharacters: .urlQueryAllowed
+    ) else {
+      return
+    }
+
+    request(
+      url: url(for: .search,queryParams: ["q": safeQuery]),
+      expecting: SearchResponse.self,
+      completion: completion
+    )
+  }
+  
   // get stock info
   
   // search stocks
@@ -21,9 +36,9 @@ final class APICaller {
   // MARK: Private
   
   private enum Constants {
-    static let apiKey = ""
-    static let sandboxAPIKey = ""
-    static let baseURL = ""
+    static let apiKey = "c95b8gqad3icae7g81cg"
+    static let sandboxAPIKey = "sandbox_c95b8gqad3icae7g81d0"
+    static let baseURL = "https://finnhub.io/api/v1/"
   }
   
   private enum Endpoint: String {
@@ -36,7 +51,22 @@ final class APICaller {
   }
   
   private func url(for endpoint: Endpoint, queryParams: [String: String] = [:]) -> URL? {
-    return nil
+    var urlString = Constants.baseURL + endpoint.rawValue
+    
+    var queryItems = [URLQueryItem]()
+    // add any params
+    for (name, value) in queryParams {
+      queryItems.append(.init(name: name, value: value))
+    }
+    
+    // add token
+    queryItems.append(.init(name: "token", value: Constants.apiKey))
+    
+    // Convert queri items to suffix string
+    urlString += "?" + queryItems.map { "\($0.name)=\($0.value ?? "")" }.joined(separator: "&")
+    
+    
+    return URL(string: urlString)
   }
   
   private func request<T: Codable>(url: URL?, expecting: T.Type, completion: @escaping (Result<T, Error>) -> Void) {
