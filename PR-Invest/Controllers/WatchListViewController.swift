@@ -6,16 +6,19 @@
 //
 
 import UIKit
+import FloatingPanel
 
 class WatchListViewController: UIViewController {
   
   private var searchTimer: Timer?
+  private var panel: FloatingPanelController?
   
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .systemBackground
     setUpSearchController()
     setUpTitleView()
+    setUpFloatingPanel()
   }
   
   private func setUpSearchController() {
@@ -39,6 +42,15 @@ class WatchListViewController: UIViewController {
     label.font = .systemFont(ofSize: 24, weight: .bold)
     titleView.addSubview(label)
     navigationItem.titleView = titleView
+  }
+  
+  private func setUpFloatingPanel() {
+    let panel = FloatingPanelController(delegate: self)
+    let vc = TopStoriesViewController()
+    panel.surfaceView.backgroundColor = .secondarySystemBackground
+    panel.set(contentViewController: vc)
+    panel.addPanel(toParent: self)
+    panel.track(scrollView: vc.tableView)
   }
 }
 
@@ -70,13 +82,7 @@ extension WatchListViewController: UISearchResultsUpdating {
           }
         }
       }
-      
-      
     })
-    
-    
-    // Call API to search
-    
   }
 }
 
@@ -85,9 +91,13 @@ extension WatchListViewController: SearchResultsViewControllerDelegate {
     navigationItem.searchController?.searchBar.resignFirstResponder()
     let vc = StockDetailsViewController()
     let navVC = UINavigationController(rootViewController: vc)
-    
     vc.title = searchResult.description
     present(navVC, animated: true)
-    
+  }
+}
+
+extension WatchListViewController: FloatingPanelControllerDelegate {
+  func floatingPanelDidChangeState(_ fpc: FloatingPanelController) {
+    navigationItem.titleView?.isHidden = fpc.state == .full
   }
 }

@@ -25,6 +25,7 @@
 		DFD78AB527FAD66D004EC195 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD78AB427FAD66D004EC195 /* Extensions.swift */; };
 		DFD78AB827FADED5004EC195 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD78AB727FADED5004EC195 /* SearchResultTableViewCell.swift */; };
 		DFD78ABA27FB0196004EC195 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD78AB927FB0196004EC195 /* SearchResponse.swift */; };
+		DFE03E2E27FC139600BDDC30 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = DFE03E2D27FC139600BDDC30 /* FloatingPanel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFE03E2E27FC139600BDDC30 /* FloatingPanel in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +236,9 @@
 			dependencies = (
 			);
 			name = "PR-Invest";
+			packageProductDependencies = (
+				DFE03E2D27FC139600BDDC30 /* FloatingPanel */,
+			);
 			productName = "PR-Invest";
 			productReference = DF4F470627F9F0210054C3B3 /* PR-Invest.app */;
 			productType = "com.apple.product-type.application";
@@ -306,6 +311,9 @@
 				Base,
 			);
 			mainGroup = DF4F46FD27F9F0210054C3B3;
+			packageReferences = (
+				DFE03E2C27FC139600BDDC30 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
+			);
 			productRefGroup = DF4F470727F9F0210054C3B3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -696,6 +704,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DFE03E2C27FC139600BDDC30 /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scenee/FloatingPanel.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DFE03E2D27FC139600BDDC30 /* FloatingPanel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DFE03E2C27FC139600BDDC30 /* XCRemoteSwiftPackageReference "FloatingPanel" */;
+			productName = FloatingPanel;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		DF4F471227F9F0210054C3B3 /* PR_Invest.xcdatamodeld */ = {
