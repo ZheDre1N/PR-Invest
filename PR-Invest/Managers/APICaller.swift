@@ -31,6 +31,41 @@ final class APICaller {
   
   // get stock info
   
+  public func news(
+    for type: NewsViewController.NewsType,
+    completion: @escaping (Result<[NewsStory], Error>) ->  Void
+  ) {
+    
+    switch type {
+    case .topStories :
+      request(
+        url:
+          url(
+            for: .topStories,
+            queryParams: ["category": "general"]
+          ),
+        expecting: [NewsStory].self,
+        completion: completion
+      )
+    case .company(let ticker):
+      let today = Date()
+      let oneWeekAgo = today.addingTimeInterval(-(3600 * 24 * 7))
+      
+      request(
+        url: url(
+          for: .companyNews,
+          queryParams: [
+            "symbol": ticker,
+            "from": DateFormatter.newsDateFormatter.string(from: oneWeekAgo),
+            "to": DateFormatter.newsDateFormatter.string(from: today)
+          ]
+        ),
+        expecting: [NewsStory].self,
+        completion: completion
+      )
+    }
+  }
+  
   // search stocks
   
   // MARK: Private
@@ -43,6 +78,8 @@ final class APICaller {
   
   private enum Endpoint: String {
     case search
+    case topStories = "news"
+    case companyNews = "company-news"
   }
   
   private enum APIError: Error {

@@ -27,6 +27,7 @@
 		DFD78ABA27FB0196004EC195 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD78AB927FB0196004EC195 /* SearchResponse.swift */; };
 		DFE03E2E27FC139600BDDC30 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = DFE03E2D27FC139600BDDC30 /* FloatingPanel */; };
 		DFE03E3027FC1E8600BDDC30 /* NewsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE03E2F27FC1E8600BDDC30 /* NewsHeaderView.swift */; };
+		DFE03E3227FC35B500BDDC30 /* NewsStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE03E3127FC35B500BDDC30 /* NewsStory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		DFD78AB727FADED5004EC195 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		DFD78AB927FB0196004EC195 /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
 		DFE03E2F27FC1E8600BDDC30 /* NewsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsHeaderView.swift; sourceTree = "<group>"; };
+		DFE03E3127FC35B500BDDC30 /* NewsStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsStory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				DFD78AB927FB0196004EC195 /* SearchResponse.swift */,
+				DFE03E3127FC35B500BDDC30 /* NewsStory.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				DF4F471427F9F0210054C3B3 /* PR_Invest.xcdatamodeld in Sources */,
 				DF1161B827F9FA4D009B46DD /* PersistenceManager.swift in Sources */,
 				DFE03E3027FC1E8600BDDC30 /* NewsHeaderView.swift in Sources */,
+				DFE03E3227FC35B500BDDC30 /* NewsStory.swift in Sources */,
 				DF4F470E27F9F0210054C3B3 /* WatchListViewController.swift in Sources */,
 				DF4F474827F9F75D0054C3B3 /* StockDetailsViewController.swift in Sources */,
 				DF4F470A27F9F0210054C3B3 /* AppDelegate.swift in Sources */,

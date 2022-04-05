@@ -89,8 +89,7 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//    NewsHeaderView.prefferedHeight
-    UITableView.automaticDimension
+    NewsHeaderView.prefferedHeight
   }
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
