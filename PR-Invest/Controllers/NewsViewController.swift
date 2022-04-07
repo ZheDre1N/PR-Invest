@@ -10,10 +10,7 @@ import UIKit
 class NewsViewController: UIViewController {
   
   private var newsType: NewsType
-  private var stories: [NewsStory] = [
-  NewsStory(category: "", datetime: 139500, headline: "headline", image: "https://thumbs.dreamstime.com/b/berry-pie-20808479.jpg", related: "CNBC", source: "CNBC", summary: "da", url: "https://thumbs.dreamstime.com/b/berry-pie-20808479.jpg"),
-  NewsStory(category: "", datetime: 139500, headline: "headline", image: "https://thumbs.dreamstime.com/b/berry-pie-20808479.jpg", related: "Bloomberg", source: "Bloomberg", summary: "da", url: "https://thumbs.dreamstime.com/b/berry-pie-20808479.jpg")
-  ]
+  private var stories = [NewsStory]()
   
   public var tableView: UITableView = {
     let table = UITableView()
@@ -64,7 +61,17 @@ class NewsViewController: UIViewController {
   }
   
   private func fetchNews() {
-    
+    APICaller.shared.news(for: .topStories) { [weak self] result in
+      switch result {
+      case .success(let stories):
+        DispatchQueue.main.async {
+          self?.stories = stories
+          self?.tableView.reloadData()
+        }
+      case .failure(let error):
+        print(error.localizedDescription)
+      }
+    }
   }
   
   private func open(url: URL) {

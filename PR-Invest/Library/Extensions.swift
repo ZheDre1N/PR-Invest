@@ -57,7 +57,7 @@ extension DateFormatter {
 extension String {
   static func string(from timeInterval: TimeInterval) -> String {
     let date = Date(timeIntervalSince1970: timeInterval)
-    return DateFormatter.newsDateFormatter.string(from: date)
+    return DateFormatter.cellDateFormatter.string(from: date)
   }
 }
 
