@@ -10,11 +10,15 @@ import UIKit
 class NewsViewController: UIViewController {
   
   private var newsType: NewsType
-  private var watchList = [String]()
+  private var stories: [NewsStory] = [
+  NewsStory(category: "", datetime: 139500, headline: "headline", image: "https://thumbs.dreamstime.com/b/berry-pie-20808479.jpg", related: "CNBC", source: "CNBC", summary: "da", url: "https://thumbs.dreamstime.com/b/berry-pie-20808479.jpg"),
+  NewsStory(category: "", datetime: 139500, headline: "headline", image: "https://thumbs.dreamstime.com/b/berry-pie-20808479.jpg", related: "Bloomberg", source: "Bloomberg", summary: "da", url: "https://thumbs.dreamstime.com/b/berry-pie-20808479.jpg")
+  ]
   
   public var tableView: UITableView = {
     let table = UITableView()
     table.register(NewsHeaderView.self, forHeaderFooterViewReuseIdentifier: NewsHeaderView.identifier)
+    table.register(NewsStoryTableViewCell.self, forCellReuseIdentifier: NewsStoryTableViewCell.identifier)
     table.backgroundColor = .clear
     return table
   }()
@@ -70,11 +74,13 @@ class NewsViewController: UIViewController {
 
 extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    0
+    stories.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    UITableViewCell()
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsStoryTableViewCell.identifier, for: indexPath) as? NewsStoryTableViewCell else { return UITableViewCell() }
+    cell.configure(with: .init(model: stories[indexPath.row]))
+    return cell
   }
   
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -93,10 +99,12 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    140
+    NewsStoryTableViewCell.preferredHeigh
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
+    // Open story page
+    
   }
 }
