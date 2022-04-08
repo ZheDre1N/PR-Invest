@@ -129,7 +129,6 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource {
       preferredStyle: .alert
     )
     alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
-    
-    
+    present(alert, animated: true)
   }
 }

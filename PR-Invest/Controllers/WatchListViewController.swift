@@ -13,12 +13,29 @@ class WatchListViewController: UIViewController {
   private var searchTimer: Timer?
   private var panel: FloatingPanelController?
   
+  // Model
+  private var watchlistMap: [String: [String]] = [:]
+  
+  
+  // ViewModel
+  private var viewModels: [String] = []
+  
+  
+  private var tablewView: UITableView = {
+    let table = UITableView()
+    return table
+  }()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = .systemBackground
     setUpSearchController()
+    setUpTableView()
+    setUpWatchlistData()
     setUpTitleView()
     setUpFloatingPanel()
+    tablewView.delegate = self
+    tablewView.dataSource = self
   }
   
   private func setUpSearchController() {
@@ -27,6 +44,18 @@ class WatchListViewController: UIViewController {
     let searchVC = UISearchController(searchResultsController: resultVC)
     searchVC.searchResultsUpdater = self
     navigationItem.searchController = searchVC
+  }
+  
+  private func setUpTableView() {
+    
+  }
+  
+  private func setUpWatchlistData() {
+    let symbols = PersistenceManager.shared.watchlist
+    for symbol in symbols {
+      // Fetch market data
+      watchlistMap[symbol] = ["some string"]
+    }
   }
   
   private func setUpTitleView() {
@@ -98,6 +127,23 @@ extension WatchListViewController: SearchResultsViewControllerDelegate {
 
 extension WatchListViewController: FloatingPanelControllerDelegate {
   func floatingPanelDidChangeState(_ fpc: FloatingPanelController) {
-//    navigationItem.titleView?.isHidden = fpc.state == .full
+    navigationItem.titleView?.isHidden = fpc.state == .full
+    navigationItem.searchController?.searchBar.isHidden = fpc.state == .full
+  }
+}
+
+extension WatchListViewController: UITableViewDataSource, UITableViewDelegate {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    watchlistMap.count
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    UITableViewCell()
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
+    
+    // Open details for selection
   }
 }
