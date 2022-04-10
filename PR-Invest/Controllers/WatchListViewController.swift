@@ -230,12 +230,8 @@ extension WatchListViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     if editingStyle == .delete {
       tableView.beginUpdates()
-      // update viewModeles
-      viewModels.remove(at: indexPath.row)
-      // update persistenct
-      print(viewModels[indexPath.row].symbol)
       PersistenceManager.shared.removeFromWatchlist(symbol: viewModels[indexPath.row].symbol)
-      // delete row
+      viewModels.remove(at: indexPath.row)
       tableView.deleteRows(at: [indexPath], with: .automatic)
       tableView.endUpdates()
     }
