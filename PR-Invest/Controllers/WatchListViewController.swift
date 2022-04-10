@@ -16,13 +16,12 @@ class WatchListViewController: UIViewController {
   // Model
   private var watchlistMap: [String: [CandleStick]] = [:]
   
-  
   // ViewModel
   private var viewModels: [WatchlistTableViewCell.ViewModel] = []
   
-  
-  private var tablewView: UITableView = {
+  private var tableView: UITableView = {
     let table = UITableView()
+    table.register(WatchlistTableViewCell.self, forCellReuseIdentifier: WatchlistTableViewCell.identifier)
     return table
   }()
   
@@ -34,8 +33,13 @@ class WatchListViewController: UIViewController {
     setUpWatchlistData()
     setUpTitleView()
     setUpFloatingPanel()
-    tablewView.delegate = self
-    tablewView.dataSource = self
+    tableView.delegate = self
+    tableView.dataSource = self
+  }
+  
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    tableView.frame = view.bounds
   }
   
   private func setUpSearchController() {
@@ -47,7 +51,7 @@ class WatchListViewController: UIViewController {
   }
   
   private func setUpTableView() {
-    
+    view.addSubviews(tableView)
   }
   
   private func setUpWatchlistData() {
@@ -61,17 +65,21 @@ class WatchListViewController: UIViewController {
       APICaller.shared.marketData(for: symbol) { [weak self] result in
         switch result {
         case .success(let data):
+          print("success")
           let candleSticks = data.candleSticks
           self?.watchlistMap[symbol] = candleSticks
         case .failure(let error):
+          print("failed")
           print(error.localizedDescription)
         }
+        group.leave()
       }
+      
+
     }
-    
     group.notify(queue: .main) { [weak self] in
       self?.createViewModels()
-      self?.tablewView.reloadData()
+      self?.tableView.reloadData()
     }
   }
   
@@ -81,7 +89,7 @@ class WatchListViewController: UIViewController {
       let changePercentage = getChangePercentage(for: candleSticks)
       viewModels.append(.init(
         symbol: symbol,
-        companyName: UserDefaults.standard.string(forKey: symbol) ?? "Company",
+        companyName: UserDefaults.standard.string(forKey: symbol) ?? "Noname company",
         price: getLatestClosingPrice(from: candleSticks),
         changeColor:  changePercentage < 0 ? .systemRed : .systemGreen,
         changePercentage: String.percentage(from: changePercentage)
@@ -92,7 +100,7 @@ class WatchListViewController: UIViewController {
   
   private func getLatestClosingPrice(from data: [CandleStick]) -> String {
     guard let closingPrice = data.first?.close else {
-      return "nil"
+      return ""
     }
     return .formatted(number: closingPrice)
   }
@@ -103,8 +111,11 @@ class WatchListViewController: UIViewController {
           let priorClose = data.first(where: {
             !Calendar.current.isDate($0.date, inSameDayAs: latestDate)
           })?.close else {
+      print("guard")
       return 0
     }
+    
+    print("Current: \(latestClose), prior: \(priorClose)")
     let diff = 1 - priorClose/latestClose
     return diff
   }
@@ -185,11 +196,23 @@ extension WatchListViewController: FloatingPanelControllerDelegate {
 
 extension WatchListViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    watchlistMap.count
+    return viewModels.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    UITableViewCell()
+    guard let cell = tableView.dequeueReusableCell(
+      withIdentifier: WatchlistTableViewCell.identifier,
+      for: indexPath
+    ) as? WatchlistTableViewCell else {
+      return UITableViewCell()
+    }
+    cell.configure(with: viewModels[indexPath.row])
+    print(viewModels[indexPath.row].companyName)
+    return cell
+  }
+  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return WatchlistTableViewCell.prefferedHeight
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -13,7 +13,7 @@ final class PersistenceManager {
   private let userDefaults: UserDefaults = .standard
   
   private enum Constants {
-    static let onboardedKey = "hasOnboarded"
+    static let onboardedKey = "hasOnBoarded"
     static let watchlistKey = "watchlist"
   }
   

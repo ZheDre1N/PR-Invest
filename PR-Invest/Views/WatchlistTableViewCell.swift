@@ -23,8 +23,7 @@ class WatchlistTableViewCell: UITableViewCell {
   // SymbolLabel
   private let symbolLabel: UILabel = {
     let label = UILabel()
-    label.font = .systemFont(ofSize: 15, weight: .regular)
-    
+    label.font = .systemFont(ofSize: 15, weight: .medium)
     return label
   }()
   
@@ -32,30 +31,24 @@ class WatchlistTableViewCell: UITableViewCell {
   private let companyLabel: UILabel = {
     let label = UILabel()
     label.font = .systemFont(ofSize: 15, weight: .regular)
-    
     return label
   }()
   
   // MiniChartView
-  
   private let miniChartView = StockChartView()
   
   // PriceLabel
   private let priceLabel: UILabel = {
     let label = UILabel()
     label.font = .systemFont(ofSize: 15, weight: .regular)
-    
     return label
   }()
-  
-  
   
   // Change in priceLabel
   private let changeLabel: UILabel = {
     let label = UILabel()
     label.textColor = .white
     label.font = .systemFont(ofSize: 15, weight: .regular)
-    
     return label
   }()
   

@@ -66,7 +66,7 @@ extension String {
   }
   
   static func formatted(number: Double) -> String {
-    let formatter = NumberFormatter.percentFormatter
+    let formatter = NumberFormatter.numberFormatter
     return formatter.string(from: NSNumber(value: number)) ?? "\(number)"
   }
 }
