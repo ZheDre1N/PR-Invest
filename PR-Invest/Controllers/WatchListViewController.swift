@@ -12,6 +12,7 @@ class WatchListViewController: UIViewController {
   
   private var searchTimer: Timer?
   private var panel: FloatingPanelController?
+  static var maxChangedWidth: CGFloat = 0
   
   // Model
   private var watchlistMap: [String: [CandleStick]] = [:]
@@ -65,11 +66,9 @@ class WatchListViewController: UIViewController {
       APICaller.shared.marketData(for: symbol) { [weak self] result in
         switch result {
         case .success(let data):
-          print("success")
           let candleSticks = data.candleSticks
           self?.watchlistMap[symbol] = candleSticks
         case .failure(let error):
-          print("failed")
           print(error.localizedDescription)
         }
         group.leave()
@@ -92,7 +91,8 @@ class WatchListViewController: UIViewController {
         companyName: UserDefaults.standard.string(forKey: symbol) ?? "Noname company",
         price: getLatestClosingPrice(from: candleSticks),
         changeColor:  changePercentage < 0 ? .systemRed : .systemGreen,
-        changePercentage: String.percentage(from: changePercentage)
+        changePercentage: String.percentage(from: changePercentage),
+        chartViewModel: .init(data: candleSticks.reversed().map { $0.close }, showLegend: false, showAxis: false)
       ))
     }
     self.viewModels = viewModels
@@ -111,11 +111,9 @@ class WatchListViewController: UIViewController {
           let priorClose = data.first(where: {
             !Calendar.current.isDate($0.date, inSameDayAs: latestDate)
           })?.close else {
-      print("guard")
       return 0
     }
     
-    print("Current: \(latestClose), prior: \(priorClose)")
     let diff = 1 - priorClose/latestClose
     return diff
   }
@@ -206,8 +204,8 @@ extension WatchListViewController: UITableViewDataSource, UITableViewDelegate {
     ) as? WatchlistTableViewCell else {
       return UITableViewCell()
     }
+    cell.delegate = self
     cell.configure(with: viewModels[indexPath.row])
-    print(viewModels[indexPath.row].companyName)
     return cell
   }
   
@@ -219,5 +217,12 @@ extension WatchListViewController: UITableViewDataSource, UITableViewDelegate {
     tableView.deselectRow(at: indexPath, animated: true)
     
     // Open details for selection
+  }
+}
+
+
+extension WatchListViewController: WatchlistTableViewCellDelegate {
+  func didUpdateMaxWidth() {
+    tableView.reloadData()
   }
 }
