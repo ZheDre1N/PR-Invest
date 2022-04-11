@@ -107,3 +107,7 @@ extension NumberFormatter {
     return formatter
   }()
 }
+
+extension Notification.Name {
+  static let didAddToWatchList = Notification.Name("didAddToWatchList")
+}

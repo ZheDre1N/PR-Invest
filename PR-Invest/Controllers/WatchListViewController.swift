@@ -13,6 +13,7 @@ class WatchListViewController: UIViewController {
   private var searchTimer: Timer?
   private var panel: FloatingPanelController?
   static var maxChangedWidth: CGFloat = 0
+  private var observer: NSObjectProtocol?
   
   // Model
   private var watchlistMap: [String: [CandleStick]] = [:]
@@ -34,6 +35,7 @@ class WatchListViewController: UIViewController {
     setUpWatchlistData()
     setUpTitleView()
     setUpFloatingPanel()
+    setUpObserver()
     tableView.delegate = self
     tableView.dataSource = self
   }
@@ -41,6 +43,14 @@ class WatchListViewController: UIViewController {
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
     tableView.frame = view.bounds
+  }
+  
+  private func setUpObserver() {
+    observer = NotificationCenter.default.addObserver(forName: .didAddToWatchList, object: nil, queue: .main
+    ) { [weak self] _ in
+      self?.viewModels.removeAll()
+      self?.setUpWatchlistData()
+    }
   }
   
   private func setUpSearchController() {
@@ -60,10 +70,14 @@ class WatchListViewController: UIViewController {
     
     let group = DispatchGroup()
     
-    for symbol in symbols {
-      // Fetch market data
+    for symbol in symbols where watchlistMap[symbol] == nil {
       group.enter()
       APICaller.shared.marketData(for: symbol) { [weak self] result in
+        
+        defer {
+          group.leave()
+        }
+        
         switch result {
         case .success(let data):
           let candleSticks = data.candleSticks
@@ -71,10 +85,7 @@ class WatchListViewController: UIViewController {
         case .failure(let error):
           print(error.localizedDescription)
         }
-        group.leave()
       }
-      
-
     }
     group.notify(queue: .main) { [weak self] in
       self?.createViewModels()
