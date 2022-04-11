@@ -28,7 +28,7 @@ class NewsHeaderView: UITableViewHeaderFooterView {
     return label
   }()
   
-  private var button: UIButton = {
+  public var button: UIButton = {
     let button = UIButton()
     button.setTitle("+ Watchlist", for: .normal)
     button.backgroundColor = .systemBlue
