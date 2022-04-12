@@ -49,8 +49,7 @@ class StockDetailHeaderView: UIView {
     chartViewModel: StockChartView.ViewModel,
     metricViewModels: [MetricsCollectionViewCell.ViewModel]
   ) {
-    // update chartView
-    
+    chartView.configure(with: chartViewModel)
     self.metricViewModels = metricViewModels
     collectionView.reloadData()
   }

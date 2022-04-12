@@ -23,6 +23,7 @@
 		DFD12C72280027BA0010DCF7 /* MarketDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD12C71280027BA0010DCF7 /* MarketDataResponse.swift */; };
 		DFD12C7428004E7D0010DCF7 /* WatchlistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD12C7328004E7D0010DCF7 /* WatchlistTableViewCell.swift */; };
 		DFD12C76280051B10010DCF7 /* StockChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD12C75280051B10010DCF7 /* StockChartView.swift */; };
+		DFD724552805CDF0000E24F8 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = DFD724542805CDF0000E24F8 /* Charts */; };
 		DFD78AB527FAD66D004EC195 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD78AB427FAD66D004EC195 /* Extensions.swift */; };
 		DFD78AB827FADED5004EC195 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD78AB727FADED5004EC195 /* SearchResultTableViewCell.swift */; };
 		DFD78ABA27FB0196004EC195 /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD78AB927FB0196004EC195 /* SearchResponse.swift */; };
@@ -86,6 +87,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DFE03E2E27FC139600BDDC30 /* FloatingPanel in Frameworks */,
+				DFD724552805CDF0000E24F8 /* Charts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,6 +231,7 @@
 			name = "PR-Invest";
 			packageProductDependencies = (
 				DFE03E2D27FC139600BDDC30 /* FloatingPanel */,
+				DFD724542805CDF0000E24F8 /* Charts */,
 			);
 			productName = "PR-Invest";
 			productReference = DF4F470627F9F0210054C3B3 /* PR-Invest.app */;
@@ -304,6 +307,7 @@
 			mainGroup = DF4F46FD27F9F0210054C3B3;
 			packageReferences = (
 				DFE03E2C27FC139600BDDC30 /* XCRemoteSwiftPackageReference "FloatingPanel" */,
+				DFD724532805CDF0000E24F8 /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			productRefGroup = DF4F470727F9F0210054C3B3 /* Products */;
 			projectDirPath = "";
@@ -702,6 +706,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		DFD724532805CDF0000E24F8 /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 		DFE03E2C27FC139600BDDC30 /* XCRemoteSwiftPackageReference "FloatingPanel" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scenee/FloatingPanel.git";
@@ -713,6 +725,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		DFD724542805CDF0000E24F8 /* Charts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DFD724532805CDF0000E24F8 /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = Charts;
+		};
 		DFE03E2D27FC139600BDDC30 /* FloatingPanel */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DFE03E2C27FC139600BDDC30 /* XCRemoteSwiftPackageReference "FloatingPanel" */;
