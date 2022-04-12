@@ -15,6 +15,7 @@ class StockDetailsViewController: UIViewController {
   private let companyName: String
   private var candleStickData: [CandleStick]
   private var stories: [NewsStory] = []
+  private var metrics: Metrics?
   
   private let tableView: UITableView = {
     let table = UITableView()
@@ -114,7 +115,7 @@ class StockDetailsViewController: UIViewController {
       switch result {
       case .success(let response):
         let metrics = response.metric
-        print(metrics)
+        self?.metrics = metrics
       case .failure(let error):
         print(error.localizedDescription)
       }
@@ -150,10 +151,24 @@ class StockDetailsViewController: UIViewController {
       height: view.width * 0.7 + 100
     ))
     
-    headerview.backgroundColor = .link
+//    headerview.backgroundColor = .link
     tableView.tableHeaderView = headerview
     
-    // Chart VM | FinancialMetricViewModels
+    var viewModels = [MetricsCollectionViewCell.ViewModel]()
+
+    if let metrics = metrics {
+      viewModels.append(.init(name: "52W High", value: "\(metrics.AnnualHigh)"))
+      viewModels.append(.init(name: "52W Low", value: "\(metrics.AnnualLow)"))
+      viewModels.append(.init(name: "52W Return", value: "\(metrics.AnnualPriceReturnDaily)"))
+      viewModels.append(.init(name: "Beta", value: "\(metrics.beta)"))
+      viewModels.append(.init(name: "10D Volume", value: "\(metrics.TenDayAverageTradingVolume)"))
+    }
+
+    headerview.configure(chartViewModel: .init(
+      data: [],
+      showLegend: false,
+      showAxis: false
+    ), metricViewModels: viewModels)
   }
 }
 

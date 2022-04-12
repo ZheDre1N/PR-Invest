@@ -10,6 +10,7 @@
 		DF1161B627F9FA38009B46DD /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1161B527F9FA38009B46DD /* APICaller.swift */; };
 		DF1161B827F9FA4D009B46DD /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1161B727F9FA4D009B46DD /* PersistenceManager.swift */; };
 		DF1161BA27F9FB81009B46DD /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1161B927F9FB81009B46DD /* HapticsManager.swift */; };
+		DF4D08A32805BE180023EE79 /* MetricsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4D08A22805BE180023EE79 /* MetricsCollectionViewCell.swift */; };
 		DF4F470A27F9F0210054C3B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4F470927F9F0210054C3B3 /* AppDelegate.swift */; };
 		DF4F470C27F9F0210054C3B3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4F470B27F9F0210054C3B3 /* SceneDelegate.swift */; };
 		DF4F470E27F9F0210054C3B3 /* WatchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4F470D27F9F0210054C3B3 /* WatchListViewController.swift */; };
@@ -53,6 +54,7 @@
 		DF1161B527F9FA38009B46DD /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		DF1161B727F9FA4D009B46DD /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		DF1161B927F9FB81009B46DD /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
+		DF4D08A22805BE180023EE79 /* MetricsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsCollectionViewCell.swift; sourceTree = "<group>"; };
 		DF4F470627F9F0210054C3B3 /* PR-Invest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PR-Invest.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF4F470927F9F0210054C3B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF4F470B27F9F0210054C3B3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				DFD12C7328004E7D0010DCF7 /* WatchlistTableViewCell.swift */,
 				DFD12C75280051B10010DCF7 /* StockChartView.swift */,
 				DFF6679E2804ADC9003AE3EC /* StockDetailHeaderView.swift */,
+				DF4D08A22805BE180023EE79 /* MetricsCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				DFF6679D2804A31A003AE3EC /* FinancialMetricsResponse.swift in Sources */,
 				DF1161B827F9FA4D009B46DD /* PersistenceManager.swift in Sources */,
 				DFE03E3027FC1E8600BDDC30 /* NewsHeaderView.swift in Sources */,
+				DF4D08A32805BE180023EE79 /* MetricsCollectionViewCell.swift in Sources */,
 				DFE03E3227FC35B500BDDC30 /* NewsStory.swift in Sources */,
 				DF5B55DE27FF6294007706E0 /* NewsStoryTableViewCell.swift in Sources */,
 				DFD12C7428004E7D0010DCF7 /* WatchlistTableViewCell.swift in Sources */,

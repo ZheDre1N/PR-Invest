@@ -10,6 +10,7 @@ import UIKit
 class StockDetailHeaderView: UIView {
   // ChartView
   private let chartView = StockChartView()
+  private var metricViewModels: [MetricsCollectionViewCell.ViewModel] = []
   
   // CollectionView
   private let collectionView: UICollectionView = {
@@ -21,7 +22,8 @@ class StockDetailHeaderView: UIView {
     // register cell
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-    collectionView.backgroundColor = .red
+    collectionView.register(MetricsCollectionViewCell.self, forCellWithReuseIdentifier: MetricsCollectionViewCell.identifier)
+    collectionView.backgroundColor = .secondarySystemBackground
     return collectionView
   }()
   
@@ -44,23 +46,31 @@ class StockDetailHeaderView: UIView {
   }
   
   public func configure(
-    with viewModel: StockChartView.ViewModel
+    chartViewModel: StockChartView.ViewModel,
+    metricViewModels: [MetricsCollectionViewCell.ViewModel]
   ) {
+    // update chartView
     
+    self.metricViewModels = metricViewModels
+    collectionView.reloadData()
   }
 }
 
 extension StockDetailHeaderView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 0
+    return metricViewModels.count
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "", for: indexPath)
+    let cell = collectionView.dequeueReusableCell(
+      withReuseIdentifier: MetricsCollectionViewCell.identifier,
+      for: indexPath
+    ) as! MetricsCollectionViewCell
+    cell.configure(with: metricViewModels[indexPath.row])
     return cell
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    CGSize(width: width / 2, height: height / 3)
+    CGSize(width: width / 2, height: 100 / 3)
   }
 }
