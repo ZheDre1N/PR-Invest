@@ -53,15 +53,6 @@ class StockDetailsViewController: UIViewController {
     setUpTable()
     fetchFinancialData()
     fetchNews()
-    // Do any additional setup after loading the view.
-    
-    // show view
-    
-    // fetchfinancial data
-    
-    // show chart
-    
-    // show news
   }
   
   override func viewDidLayoutSubviews() {
@@ -83,6 +74,7 @@ class StockDetailsViewController: UIViewController {
   
   private func setUpTable() {
     view.addSubview(tableView)
+    tableView.backgroundColor = .secondarySystemBackground
     tableView.delegate = self
     tableView.dataSource = self
     tableView.tableHeaderView = UIView(frame: CGRect(
