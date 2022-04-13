@@ -6,14 +6,17 @@
 //
 
 import UIKit
-import CoreData
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
 
+class AppDelegate: UIResponder, UIApplicationDelegate {
+  
+  /// Gets called when app launches
+  /// - Parameters:
+  ///   - application: App instance
+  ///   - launchOptions: Launch properties
+  /// - Returns: Bool for success or failure
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    // Override point for customization after application launch.
     return true
   }
 }
-

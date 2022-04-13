@@ -164,26 +164,12 @@ class StockDetailsViewController: UIViewController {
       viewModels.append(.init(name: "10D Volume", value: "\(metrics.TenDayAverageTradingVolume)"))
     }
     
-    let change = getChangePercentage(for: candleStickData)
     headerview.configure(chartViewModel: .init(
       data: candleStickData.reversed().map { $0.close },
       showLegend: true,
       showAxis: true,
-      fillColor: change < 0 ? .red : .green
+      fillColor: .systemGreen
     ), metricViewModels: viewModels)
-  }
-  
-  private func getChangePercentage(for data: [CandleStick]) -> Double {
-    let latestDate = data[0].date
-    guard let latestClose = data.first?.close,
-          let priorClose = data.first(where: {
-            !Calendar.current.isDate($0.date, inSameDayAs: latestDate)
-          })?.close else {
-      return 0
-    }
-    
-    let diff = 1 - priorClose/latestClose
-    return diff
   }
 }
 
@@ -245,7 +231,7 @@ extension StockDetailsViewController: NewsHeaderViewDelegate {
     
     let alert = UIAlertController(
       title: "Added to Watchlist",
-      message: "We've added \(companyName) to tour watchlist.",
+      message: "We've added \(companyName) to your watchlist.",
       preferredStyle: .alert
     )
     alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel))
